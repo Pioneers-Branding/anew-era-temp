@@ -40,7 +40,7 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
 </section>
 
 <!-- ─── Insurer marquee ──────────────────────────────────────────────── -->
-<section class="border-b-2 border-ink/10">
+<section id="insurance" class="border-b-2 border-ink/10">
   <?php // On a phone the label and the coverage link leave the marquee about
         // 50px to run in, so it reads as empty. Below lg the three parts
         // stack and the logos get the full width. ?>
@@ -145,7 +145,7 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
                 <a href="contact.php" class="inline-flex items-center gap-2 rounded-full bg-white px-[18px] py-3.5 text-sm font-extrabold text-ink transition-colors hover:bg-brand-orange hover:text-white">
                   Get Care <?= arrow_icon(15) ?>
                 </a>
-                <a href="<?= e($condition['page'] ?? '#treatments') ?>" class="inline-flex items-center gap-2 rounded-full bg-white/15 px-[18px] py-3.5 text-sm font-extrabold text-white transition-colors hover:bg-white/30"><?= isset($condition['page']) ? 'Learn More' : 'Treatments' ?></a>
+                <a href="#treatments" class="inline-flex items-center gap-2 rounded-full bg-white/15 px-[18px] py-3.5 text-sm font-extrabold text-white transition-colors hover:bg-white/30">Explore Treatments</a>
               </div>
             </div>
           </div>
@@ -166,8 +166,8 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
         <?php foreach ($data['focus_paragraphs'] as $paragraph): ?>
           <p class="m-0 cursor-default text-pretty font-serif text-[22px] font-medium leading-[1.38] tracking-[-0.015em] text-white/80 transition-colors duration-300 hover:text-[#fbd9b0] sm:text-[26px] lg:text-[32px]"><?= e($paragraph) ?></p>
         <?php endforeach; ?>
-        <a href="about.php" class="mt-2 inline-flex items-center gap-2.5 self-start rounded-full bg-white px-7 py-4 text-[15px] font-extrabold text-brand-blue transition-colors hover:bg-brand-orange hover:text-white">
-          About Us <?= arrow_icon(15) ?>
+        <a href="contact.php" class="mt-2 inline-flex items-center gap-2.5 self-start rounded-full bg-white px-7 py-4 text-[15px] font-extrabold text-brand-blue transition-colors hover:bg-brand-orange hover:text-white">
+          Talk to Our Team <?= arrow_icon(15) ?>
         </a>
       </div>
     </div>
@@ -190,7 +190,7 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
               // column in to centre what remains.
               $offset = ($i === 3 ? ' lg:col-start-2' : '') . ($i === 4 ? ' sm:col-start-2 lg:col-start-auto' : '');
         ?>
-        <a href="<?= e($treatment['page']) ?>" data-reveal class="lift flex w-[82%] shrink-0 snap-center flex-col rounded-[20px] sm:w-auto sm:shrink sm:col-span-2<?= $offset ?> bg-white px-8 pb-8 pt-9 no-underline">
+        <a href="contact.php" data-reveal class="lift flex w-[82%] shrink-0 snap-center flex-col rounded-[20px] sm:w-auto sm:shrink sm:col-span-2<?= $offset ?> bg-white px-8 pb-8 pt-9 no-underline">
           <div class="relative mb-6 min-h-[210px] overflow-hidden rounded-2xl bg-night">
             <?= image_slot($treatment['slot'], $treatment['name'] . ' photo', $treatment['alt'], false, $treatment['focus'] ?? '') ?>
             <div class="pointer-events-none absolute inset-0 bg-card-veil"></div>
@@ -228,11 +228,11 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
       </span>
       <div>
         <p class="m-0 text-[17px] font-extrabold tracking-[-0.01em] text-ink">Not sure how you are really doing?</p>
-        <p class="m-0 mt-0.5 text-sm leading-relaxed text-ink/65">The PHQ-9 takes two minutes. It is a screening questionnaire, not a diagnosis — we will go through it with you.</p>
+        <p class="m-0 mt-0.5 text-sm leading-relaxed text-ink/65">Talk to our team about how you are feeling and the next steps for your care.</p>
       </div>
     </div>
-    <a href="phq9.php" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-blue px-7 py-4 text-[15px] font-extrabold text-white transition-colors hover:bg-brand-blue-dark">
-      Take the PHQ-9 <?= arrow_icon(15) ?>
+    <a href="contact.php#message" class="inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-blue px-7 py-4 text-[15px] font-extrabold text-white transition-colors hover:bg-brand-blue-dark">
+      Talk to Our Team <?= arrow_icon(15) ?>
     </a>
   </div>
 </section>
@@ -351,7 +351,7 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
     <?php endforeach; ?>
 
     <div class="mt-10 text-center">
-      <a href="reviews.php" class="inline-flex items-center rounded-full bg-white px-7 py-4 text-[15px] font-extrabold text-brand-blue transition-colors hover:bg-brand-orange hover:text-white">Read All the Reviews</a>
+      <a href="contact.php" class="inline-flex items-center rounded-full bg-white px-7 py-4 text-[15px] font-extrabold text-brand-blue transition-colors hover:bg-brand-orange hover:text-white">Get Care Today</a>
     </div>
   </div>
 </section>
@@ -397,9 +397,9 @@ $eyebrow    = 'm-0 text-xs font-extrabold uppercase tracking-[0.16em]';
           </div>
         <?php endforeach; ?>
 
-        <?php // The homepage carries a sample; faq.php carries the whole set. ?>
-        <a href="faq.php" class="mt-9 inline-flex items-center gap-2.5 rounded-full border-2 border-brand-blue-dark/35 bg-transparent px-6 py-3.5 text-[14px] font-extrabold text-brand-blue-dark transition-colors hover:border-brand-blue-dark hover:bg-brand-blue-dark hover:text-white">
-          See All the Questions <?= arrow_icon(15) ?>
+        <?php // Direct additional questions to the contact team. ?>
+        <a href="contact.php#message" class="mt-9 inline-flex items-center gap-2.5 rounded-full border-2 border-brand-blue-dark/35 bg-transparent px-6 py-3.5 text-[14px] font-extrabold text-brand-blue-dark transition-colors hover:border-brand-blue-dark hover:bg-brand-blue-dark hover:text-white">
+          Ask Our Team <?= arrow_icon(15) ?>
         </a>
       </div>
     </div>

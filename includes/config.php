@@ -42,16 +42,13 @@ return [
     // is marked current when the page being viewed is its href, or any page
     // in its menu. Anchors (index.php#…) never count as current.
     'nav' => [
-        ['label' => 'Home',          'href' => 'index.php'],
-        ['label' => 'About',         'href' => 'about.php'],
-        ['label' => 'Meet our team', 'href' => 'team.php'],
-        ['label' => 'Treatments',    'href' => 'treatments.php', 'menu' => 'treatments'],
-        ['label' => 'Conditions',    'href' => 'conditions.php', 'menu' => 'conditions', 'also' => ['depression-short.php']],
-        ['label' => 'Resources',     'href' => 'faq.php',        'menu' => 'resources'],
-        // No locations page yet, so the item is a menu rather than a link —
-        // the dropdown is what does the work. Give it an href once the hub
-        // page exists and the top-level item will start marking current.
-        ['label' => 'Our locations', 'href' => 'index.php#top', 'menu' => 'locations'],
+        ['label' => 'Home', 'href' => 'index.php'],
+        ['label' => 'Our Focus', 'href' => 'index.php#focus'],
+        ['label' => 'Treatments', 'href' => 'index.php#treatments'],
+        ['label' => 'Conditions', 'href' => 'index.php#conditions'],
+        ['label' => 'Reviews', 'href' => 'index.php#reviews'],
+        ['label' => 'FAQs', 'href' => 'index.php#faq'],
+        ['label' => 'Contact', 'href' => 'contact.php'],
     ],
 
     // Dropdown contents. 'icon' names a line icon in nav_icon(); 'art' names
@@ -187,39 +184,21 @@ return [
 
     // Footer link columns, rendered in includes/footer.php
     'footer_nav' => [
-        'Care' => [
-            ['label' => 'Conditions',  'href' => 'conditions.php'],
-            ['label' => 'Depression',  'href' => 'depression.php'],
-            ['label' => 'Treatments',  'href' => 'treatments.php'],
-            ['label' => 'TMS therapy', 'href' => 'tms.php'],
-            ['label' => 'Our focus',   'href' => 'index.php#focus'],
+        'Explore' => [
+            ['label' => 'Home', 'href' => 'index.php'],
+            ['label' => 'Our focus', 'href' => 'index.php#focus'],
+            ['label' => 'Treatments', 'href' => 'index.php#treatments'],
+            ['label' => 'Conditions', 'href' => 'index.php#conditions'],
         ],
-        // Careers sits on Discovery Behavioral Health's site, not ours, so the
-        // entry carries 'external' and the footer opens it in a new tab.
-        'Practice' => [
-            ['label' => 'About us', 'href' => 'about.php'],
-            ['label' => 'Careers',  'href' => 'https://discoverybehavioralhealth.com/careers/jobs/?location=Anew+Era+TMS', 'external' => true],
-        ],
-        'Patients' => [
-            ['label' => 'Book a Visit',   'href' => 'index.php#book'],
-            ['label' => 'Meet our team',  'href' => 'team.php'],
-            ['label' => 'Reviews',        'href' => 'reviews.php'],
-            ['label' => 'Insurance',      'href' => 'insurance.php'],
-            ['label' => 'FAQs',           'href' => 'faq.php'],
-            ['label' => 'Contact us',     'href' => 'contact.php'],
+        'Get in touch' => [
+            ['label' => 'Contact us', 'href' => 'contact.php'],
+            ['label' => 'Book a Visit', 'href' => 'contact.php#message'],
+            ['label' => 'FAQs', 'href' => 'index.php#faq'],
         ],
     ],
 
-    // Cookie policy and Sitemap were placeholders for pages that do not exist;
-    // this site sets no cookies of its own, and what a cookie policy would
-    // have said now sits inside the privacy policy. Add them back when there
-    // is something to point at.
-    'legal_nav' => [
-        ['label' => 'Privacy policy',     'href' => 'privacy.php'],
-        ['label' => 'HIPAA notice',       'href' => 'hipaa.php'],
-        ['label' => 'Terms of use',       'href' => 'terms.php'],
-        ['label' => 'Accessibility',      'href' => 'accessibility.php'],
-    ],
+    // These documents are not part of the initial two-page launch.
+    'legal_nav' => [],
 
     'badges' => ['HIPAA Compliant', 'Licensed Providers'],
 ];

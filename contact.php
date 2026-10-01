@@ -4,12 +4,7 @@
  *
  * The site's first real form, so a few notes on how it is wired:
  *
- *   · It posts to Netlify Forms — data-netlify="true" plus the hidden
- *     form-name field, which is what build.php's static-form check looks for.
- *     Netlify picks the form up from the rendered HTML in dist/ at deploy.
- *     Point action= at a CRM endpoint instead if the practice would rather.
- *   · data-netlify-honeypot names a field that real people never see and bots
- *     fill in. Submissions with it filled are dropped by Netlify.
+ *   · It posts directly to the configured Formester submissions endpoint.
  *   · It asks for a carrier so the intake team can verify benefits before the
  *     first visit, which is what the rest of the site promises.
  *   · It explicitly tells people NOT to put medical detail in it. A web form
@@ -125,7 +120,7 @@ $next_steps = [
   <div class="lg:grid lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-14 xl:gap-20">
 
     <div>
-      <?php // Netlify returns to this page with ?sent=1; the page is static HTML
+      <?php // If Formester redirects back to this page with ?sent=1; the page is static HTML
             // by then, so the acknowledgement is revealed in the browser. ?>
       <?php // The wrapper carries no display utility: a Tailwind `flex` class
             // would beat the `hidden` attribute's display:none and the panel
@@ -150,14 +145,8 @@ $next_steps = [
         useful rather than a request for more details.
       </p>
 
-      <?php /* Netlify Forms: the hidden form-name is what pairs a submission with
-               this form, and the honeypot field below is hidden from people. */ ?>
-      <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="parent-middle-name"
-            action="/contact.html?sent=1" class="mt-8 grid gap-5 sm:grid-cols-2">
-        <input type="hidden" name="form-name" value="contact">
-        <p class="hidden">
-          <label>Leave this blank if you are human: <input name="parent-middle-name" tabindex="-1" autocomplete="off"></label>
-        </p>
+      <form name="contact" accept-charset="UTF-8" method="POST"
+            action="https://app.formester.com/forms/oEa63wrld/submissions" class="mt-8 grid gap-5 sm:grid-cols-2">
 
         <div>
           <label for="first-name" class="<?= $label ?>">First name <?= $req ?></label>
@@ -207,7 +196,7 @@ $next_steps = [
           <input id="insurer" name="insurer" type="text" placeholder="Aetna, Blue Cross, Tricare — or leave blank" class="<?= $field ?>">
           <p class="m-0 mt-1.5 text-[12.5px] leading-[1.6] text-ink/55">
             Tell us and we can check your benefits before we call you back.
-            <a href="insurance.php" class="font-extrabold text-brand-blue underline underline-offset-4">See Who We Are In-Network With</a>.
+            <a href="index.php#insurance" class="font-extrabold text-brand-blue underline underline-offset-4">See Who We Are In-Network With</a>.
           </p>
         </div>
 
@@ -306,7 +295,7 @@ $next_steps = [
         <?php if ($loc['state'] !== $state) continue; ?>
         <li>
           <div class="flex h-full flex-col rounded-[18px] border border-[#e3e7ea] bg-white px-5 py-4">
-            <a href="<?= e($loc['page']) ?>" class="text-[14.5px] font-extrabold text-ink transition-colors hover:text-brand-blue"><?= e($loc['name']) ?></a>
+            <span class="text-[14.5px] font-extrabold text-ink"><?= e($loc['name']) ?></span>
             <span class="mt-0.5 text-[12px] leading-snug text-ink/50"><?= e($loc['address']['street']) ?></span>
             <a href="<?= e($loc['phone_href']) ?>" class="mt-2.5 inline-flex items-center gap-2 text-[13.5px] font-extrabold text-brand-blue underline underline-offset-4 hover:text-brand-blue-dark">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5Z"/></svg>
@@ -320,7 +309,7 @@ $next_steps = [
 
   <p class="m-0 mt-6 text-[13.5px] leading-[1.7] text-ink/60">
     Questions about cost, referrals or what a first visit involves are answered in the
-    <a href="faq.php" class="font-extrabold text-brand-blue underline underline-offset-4 hover:text-brand-blue-dark">FAQ</a>.
+    <a href="index.php#faq" class="font-extrabold text-brand-blue underline underline-offset-4 hover:text-brand-blue-dark">FAQ</a>.
   </p>
 </section>
 

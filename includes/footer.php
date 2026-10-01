@@ -19,7 +19,7 @@ $footer_link = 'text-sm text-white/75 transition-colors hover:text-white';
              to be a masthead band plus a four-column grid holding five
              children, so Visit wrapped onto a row of its own and left three
              empty cells and a lot of dead height under the colour bar. */ ?>
-    <div class="grid grid-cols-1 gap-x-10 gap-y-11 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.6fr)_repeat(4,minmax(0,1fr))] lg:gap-x-8">
+    <div class="grid grid-cols-1 gap-x-10 gap-y-11 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
 
       <div class="sm:col-span-2 lg:col-span-1">
         <?= brand_logo($site['name'], 'h-9 w-auto', true) ?>
@@ -82,7 +82,7 @@ $footer_link = 'text-sm text-white/75 transition-colors hover:text-white';
             <p class="m-0 mb-2.5 text-[11.5px] leading-[1.45] text-white/40"><?= e($group['desc']) ?></p>
             <ul class="m-0 flex list-none flex-col gap-2 p-0">
               <?php foreach ($group['items'] as $item): ?>
-                <li><a href="<?= e($item['href']) ?>" class="<?= $footer_link ?>"><?= e($item['label']) ?></a></li>
+                <li><a href="contact.php#clinics" class="<?= $footer_link ?>"><?= e($item['label']) ?></a></li>
               <?php endforeach; ?>
             </ul>
           </div>
@@ -133,7 +133,7 @@ $footer_link = 'text-sm text-white/75 transition-colors hover:text-white';
   acsbScript.async = true;
   acsbScript.onload = function () {
     acsbJS.init({
-      statementLink: 'accessibility.html',
+      statementLink: '',
       footerHtml: '',
       hideMobile: false,
       hideTrigger: false,

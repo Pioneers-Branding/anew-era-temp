@@ -2,7 +2,7 @@
 /**
  * Build script for Netlify deployment
  * ------------------------------------------------------------------
- * Renders every PHP page to static HTML in dist/, rewrites .php links
+ * Renders the live PHP pages to static HTML in dist/, rewrites .php links
  * to .html, and copies the assets alongside. Run locally with:
  *
  *     php build.php
@@ -21,104 +21,11 @@ $_SERVER['HTTP_HOST']      = $_SERVER['HTTP_HOST']      ?? 'localhost';
 $_SERVER['SERVER_NAME']    = $_SERVER['SERVER_NAME']    ?? 'localhost';
 $_SERVER['HTTPS']          = 'on';
 
-// Pages to build (source PHP file => output HTML file).
-// Files that do not exist yet are skipped with a warning, so pages we have
-// planned can sit here until they are written.
+// Only these pages are published for the initial launch.
 $pages = [
-    'index.php'   => 'index.html',
-    'about.php'   => 'about.html',
-    'team.php'    => 'team.html',   // the meet-our-team roster
-    'index2.php'  => 'index2.html',   // vibrant variant
-    'faq.php'        => 'faq.html',         // the full FAQ
-    'contact.php'    => 'contact.html',     // the contact form
-    'phq9.php'       => 'phq9.html',        // the PHQ-9 screening questionnaire
-    'insurance.php'  => 'insurance.html',   // carriers, coverage and cost
-    // The clinic pages, all built from includes/location-page.php.
-    'huntington-beach.php'      => 'huntington-beach.html',
-    'newport-beach.php'         => 'newport-beach.html',
-    'laguna-hills.php'          => 'laguna-hills.html',
-    'orange.php'                => 'orange.html',
-    'torrance.php'              => 'torrance.html',
-    'long-beach.php'            => 'long-beach.html',
-    'west-los-angeles.php'      => 'west-los-angeles.html',
-    'central-austin.php'        => 'central-austin.html',
-    'cedar-park.php'            => 'cedar-park.html',
-    'westlake.php'              => 'westlake.html',
-    'central-dallas.php'        => 'central-dallas.html',
-    'allen.php'                 => 'allen.html',
-    'grapevine.php'             => 'grapevine.html',
-    'cypress.php'               => 'cypress.html',
-    'the-woodlands.php'         => 'the-woodlands.html',
-    // The clinician pages, all built from includes/doctor-page.php. One per
-    // clinician who is tagged with a clinic in includes/data-team.php — the
-    // location pages link to these instead of opening a bio dialog.
-    'terry-v-eagan.php'               => 'terry-v-eagan.html',
-    'evelyn-aki.php'                  => 'evelyn-aki.html',
-    'laura-ann-beaufford.php'         => 'laura-ann-beaufford.html',
-    'priti-bhardwaj.php'              => 'priti-bhardwaj.html',
-    'megha-chadha.php'                => 'megha-chadha.html',
-    'doris-cudjoe.php'                => 'doris-cudjoe.html',
-    'john-anthony-diya.php'           => 'john-anthony-diya.html',
-    'velma-hughes.php'                => 'velma-hughes.html',
-    'dexter-jones.php'                => 'dexter-jones.html',
-    'scarlett-kang.php'               => 'scarlett-kang.html',
-    'swarna-kommireddy.php'           => 'swarna-kommireddy.html',
-    'stephany-lavigne.php'            => 'stephany-lavigne.html',
-    'rhoda-madamombe.php'             => 'rhoda-madamombe.html',
-    'tiffany-a-nix.php'               => 'tiffany-a-nix.html',
-    'abidemi-oladele.php'             => 'abidemi-oladele.html',
-    'thao-palacio.php'                => 'thao-palacio.html',
-    'kammie-pierce.php'               => 'kammie-pierce.html',
-    'adele-shyntum.php'               => 'adele-shyntum.html',
-    'damilola-fowowe.php'             => 'damilola-fowowe.html',
-    'tammy-fluker.php'                => 'tammy-fluker.html',
-    'yolanda-acosta-montoya.php'      => 'yolanda-acosta-montoya.html',
-    'heather-mak.php'                 => 'heather-mak.html',
-    'frizette-pua.php'                => 'frizette-pua.html',
-    'ferdinand-andy-rimando.php'      => 'ferdinand-andy-rimando.html',
-    'diane-rodriguez.php'             => 'diane-rodriguez.html',
-    'sherri-sarumi.php'               => 'sherri-sarumi.html',
-    'yan-shi.php'                     => 'yan-shi.html',
-    'bryan-walker.php'                => 'bryan-walker.html',
-    'erick-willars.php'               => 'erick-willars.html',
-    'xiaoyan-wu.php'                  => 'xiaoyan-wu.html',
-    'huiping-xu.php'                  => 'huiping-xu.html',
-    'christina-ferrari.php'           => 'christina-ferrari.html',
-    'rickie-lanette-fleck.php'        => 'rickie-lanette-fleck.html',
-    'tameka-franklin.php'             => 'tameka-franklin.html',
-    'kenneth-gildar.php'              => 'kenneth-gildar.html',
-    'john-andrew-hosier.php'          => 'john-andrew-hosier.html',
-    'tria-ismay.php'                  => 'tria-ismay.html',
-    'lauren-lopez.php'                => 'lauren-lopez.html',
-    'kimberly-ann-morgan.php'         => 'kimberly-ann-morgan.html',
-    'terry-rauschuber.php'            => 'terry-rauschuber.html',
-    'clarissa-sourada.php'            => 'clarissa-sourada.html',
-    'nicole-watson.php'               => 'nicole-watson.html',
-    'krystal-michelle-wurm.php'       => 'krystal-michelle-wurm.html',
-    'samantha-rodriguez-zuniga.php'   => 'samantha-rodriguez-zuniga.html',
-
-    'reviews.php'    => 'reviews.html',     // every five-star patient review
-    'conditions.php' => 'conditions.html', // the conditions index
-    'tms.php'        => 'tms.html',        // the TMS treatment page
-    'magstim-horizon.php' => 'magstim-horizon.html', // the equipment behind it
-    'treatments.php' => 'treatments.html', // the treatments index
-    'psychiatry.php' => 'psychiatry.html', // treatment page
-    'therapy.php'    => 'therapy.html',    // treatment page
-    'telepsychiatry.php' => 'telepsychiatry.html', // treatment page
-    'spravato.php'   => 'spravato.html',   // treatment page
-    'depression.php' => 'depression.html', // condition page
-    'depression-short.php' => 'depression-short.html', // short edition, for comparison
-    'anxiety.php'            => 'anxiety.html',            // condition page
-    'postpartum.php'         => 'postpartum.html',         // condition page
-    'ptsd.php'               => 'ptsd.html',               // condition page
-    'tinnitus.php'           => 'tinnitus.html',           // condition page
-    'migraines.php'          => 'migraines.html',          // condition page
-    'ocd.php'                => 'ocd.html',                // condition page
-    // The legal documents, all built from includes/legal-page.php.
-    'privacy.php'       => 'privacy.html',
-    'hipaa.php'         => 'hipaa.html',
-    'terms.php'         => 'terms.html',
-    'accessibility.php' => 'accessibility.html',
+    'index.php' => 'index.html',
+    'contact.php' => 'contact.html',
+    'thank-you.php' => 'thank-you.html',
 ];
 
 // Folders copied wholesale into dist/.

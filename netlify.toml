@@ -26,23 +26,14 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
 
-# Pretty URLs: /privacy serves privacy.html once that page exists.
+# Contact page pretty URL.
 [[redirects]]
-  from = "/privacy"
-  to = "/privacy.html"
+  from = "/contact"
+  to = "/contact.html"
   status = 200
 
+# Form submission confirmation page.
 [[redirects]]
-  from = "/terms"
-  to = "/terms.html"
-  status = 200
-
-[[redirects]]
-  from = "/hipaa"
-  to = "/hipaa.html"
-  status = 200
-
-[[redirects]]
-  from = "/accessibility"
-  to = "/accessibility.html"
+  from = "/thank-you"
+  to = "/thank-you.html"
   status = 200
